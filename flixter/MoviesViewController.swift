@@ -15,8 +15,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
+        tableView.dataSource = self
+        tableView.delegate = self
         
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
@@ -42,7 +43,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieCell
         
-        let movie = movies[indexPath.row + 1]
+        let movie = movies[indexPath.row]
         let title = movie["title"] as! String
         let synopsis = movie["overview"] as! String
         
@@ -50,32 +51,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.synopsisLabel.text = synopsis
         
         let baseUrl = "https://image.tmdb.org/t/p/w185"
-        let posterPath = movie["poster_path "] as! String
+        let posterPath = movie["poster_path"] as! String
         let posterUrl = URL(string: baseUrl + posterPath)
         
         cell.posterView.af.setImage(withURL: posterUrl!)
         
         return cell
     }
-
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        
-//        print("Navigating to the details screen")
-//
-//        let cell = sender as! UITableViewCell
-//        let indexPath = tableView.indexPath(for: cell)!
-//
-//        let movie = movies[indexPath.row]
-//
-//        let detailViewController = segue.destination as! MovieDetailsViewController
-//        detailViewController.movie = movie
-    }
-
-
 }
-
