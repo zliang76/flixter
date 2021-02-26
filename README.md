@@ -21,8 +21,6 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 ### Notes
 I had some trouble displaying the full text on storyboard, but I worked it out.
 
----
-
 ## Flix Part 2
 
 ### User Stories
